@@ -1,19 +1,11 @@
 {
-  "notes": [
-    "## v0.5.0",
-    "",
-    "- 设置页支持手动检查 FXMuse 正式更新，并在确认后下载、验证签名、安装并重启。",
-    "- 更新包从公开更新镜像获取；本地已导入应用、书签和浏览器数据不会上传、覆盖或删除。",
-    "- 发布流程改为本机空容器审计、签名构建后同步私有源码 Release 与公开更新镜像。",
-    "",
-    "首次使用此版本仍需手动下载安装；从 v0.5.0 起可在设置页检查后续正式更新。"
-  ],
-  "version": "0.5.0",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRTVJ6bmltWm5nWDBrR003aU1sRFlqWmFjeVhwNFVNWDJ4N1JSYWp1SGcxQ0RvaWpCVUEvZjhZMWJJZ3R5NTlTbmFjbXcxZUdVa05LYU8xNkJBSnZvcmZYbXZNWUZFSmdFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3NTQxODMyCWZpbGU6RlhNdXNlXzAuNS4wX3g2NC1zZXR1cC5leGUKOU14MjlaUXVvYS9Zc3drMVhlYnhFTE51eE00dzhnQTluVCtjK3dPNjJxQ3VTNXZ2elBBTEduNCtTQTRkRjA1cmo5OHhhZnpHZ29HMVNoK3RoSXRVQlE9PQo=",
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRTVJ6bmltWm5nWC96SXZ4RWpjQkxkYitYazUvc05JaGgxalhLYWYzMWc0cXZNWm1ZdHdZVU9PSlgrNXFwbWdFR0FySDZuWUpKUUZjcTNIZENrRGpkUDBPK1dTUENWZ0EwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3NTQxOTA2CWZpbGU6RlhNdXNlXzAuNS4wX3g2NC1zZXR1cC5leGUKaTB0ZElZMXZ4VHlRdE4xR2F4Mmg5N1lOcEFQM1RMTU41VFpGWmZ6WG1JMXEzb054cUVtL1VLSUJoVWwxQnF3ajI2YlJZd3h0L09mZW1JUzRaZmFVQ3c9PQo=",
       "url": "https://github.com/fxm124578/fxmuse-updates/releases/download/v0.5.0/FXMuse_0.5.0_x64-setup.exe"
     }
   },
-  "pub_date": "2026-08-24T03:23:56.1798874Z"
+  "version": "0.5.0",
+  "notes": "## v0.5.0\n\n- 设置页支持手动检查 FXMuse 正式更新，并在确认后下载、验证签名、安装并重启。\n- 更新包从公开更新镜像获取；本地已导入应用、书签和浏览器数据不会上传、覆盖或删除。\n- 发布流程改为本机空容器审计、签名构建后同步私有源码 Release 与公开更新镜像。\n\n首次使用此版本仍需手动下载安装；从 v0.5.0 起可在设置页检查后续正式更新。",
+  "pub_date": "2026-08-24T03:25:15.1332845Z"
 }
