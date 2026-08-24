@@ -1,0 +1,32 @@
+name: Create public FXMuse update release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'updates/**'
+      - 'latest.json'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.actor == 'fxmuse-release-ci'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create GitHub Release from signed update assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=$(find updates -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n 1)
+          test -n "$tag"
+          gh release view "$tag" >/dev/null 2>&1 && exit 0
+          gh release create "$tag" \
+            "updates/$tag/FXMuse_${tag#v}_x64-setup.exe" \
+            "updates/$tag/FXMuse_${tag#v}_x64-setup.exe.sig" \
+            --title "FXMuse ${tag}" \
+            --notes-file "updates/$tag/release-notes.md" \
+            --latest
