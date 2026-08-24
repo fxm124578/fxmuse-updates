@@ -12,21 +12,27 @@ permissions:
 
 jobs:
   release:
-    if: github.actor == 'fxmuse-release-ci'
+    if: startsWith(github.event.head_commit.message, 'publish: v')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create GitHub Release from signed update assets
+      - name: Create or update public release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          tag=$(find updates -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n 1)
+          tag="${GITHUB_SHA}"
+          tag=$(git log -1 --pretty=%B | sed -n 's/^publish: \(v[0-9][0-9.]*\)$/\1/p')
           test -n "$tag"
-          gh release view "$tag" >/dev/null 2>&1 && exit 0
-          gh release create "$tag" \
-            "updates/$tag/FXMuse_${tag#v}_x64-setup.exe" \
-            "updates/$tag/FXMuse_${tag#v}_x64-setup.exe.sig" \
-            --title "FXMuse ${tag}" \
-            --notes-file "updates/$tag/release-notes.md" \
-            --latest
+          version="${tag#v}"
+          installer=$(find "updates/$tag" -maxdepth 1 -name '*-setup.exe' -print -quit)
+          signature="${installer}.sig"
+          test -n "$installer" && test -f "$signature" && test -f "latest.json"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" "$installer" "$signature" --clobber
+          else
+            gh release create "$tag" "$installer" "$signature" \
+              --title "FXMuse $version" \
+              --notes-file "updates/$tag/RELEASE_NOTES.md" \
+              --latest
+          fi
