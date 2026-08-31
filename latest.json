@@ -1,11 +1,11 @@
 {
+  "pub_date": "2026-08-31T03:46:19.2189214Z",
+  "version": "0.6.0",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRTVJ6bmltWm5nWC96SXZ4RWpjQkxkYitYazUvc05JaGgxalhLYWYzMWc0cXZNWm1ZdHdZVU9PSlgrNXFwbWdFR0FySDZuWUpKUUZjcTNIZENrRGpkUDBPK1dTUENWZ0EwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg3NTQxOTA2CWZpbGU6RlhNdXNlXzAuNS4wX3g2NC1zZXR1cC5leGUKaTB0ZElZMXZ4VHlRdE4xR2F4Mmg5N1lOcEFQM1RMTU41VFpGWmZ6WG1JMXEzb054cUVtL1VLSUJoVWwxQnF3ajI2YlJZd3h0L09mZW1JUzRaZmFVQ3c9PQo=",
-      "url": "https://github.com/fxm124578/fxmuse-updates/releases/download/v0.5.0/FXMuse_0.5.0_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVRTVJ6bmltWm5nWHhMbDhaNy9IbDFmVjE0bDdacHRHNDNHOXc4QTZ1a2hlWWdyQzZZbU14VjNIMWpWdGY1eU1iSVUxaFRSZ1RyWUVSUDZoL1p0YmF6RUhEMkFTcEFvMmc0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzg4MTQ3OTY1CWZpbGU6RlhNdXNlXzAuNi4wX3g2NC1zZXR1cC5leGUKaTNWZFJVanFIY3NJZjJiMWR1Y0xiai9laGZTSDNPUjRQZ3lFaDg1dFA4akozUmZXQUdaMVh2T1JYWlFqSTJkSENaVTJWbUI0YzArMVZ5dUk3a3l5Qmc9PQo=",
+      "url": "https://github.com/fxm124578/fxmuse-updates/releases/download/v0.6.0/FXMuse_0.6.0_x64-setup.exe"
     }
   },
-  "version": "0.5.0",
-  "notes": "## v0.5.0\n\n- 设置页支持手动检查 FXMuse 正式更新，并在确认后下载、验证签名、安装并重启。\n- 更新包从公开更新镜像获取；本地已导入应用、书签和浏览器数据不会上传、覆盖或删除。\n- 发布流程改为本机空容器审计、签名构建后同步私有源码 Release 与公开更新镜像。\n\n首次使用此版本仍需手动下载安装；从 v0.5.0 起可在设置页检查后续正式更新。",
-  "pub_date": "2026-08-24T03:25:15.1332845Z"
+  "notes": "## 本轮更新\n\n- 内置浏览器改为原生多页签：每个页面拥有独立 WebView，切换左侧入口、同域名页签、工作台或设置时只隐藏与显示，不再通过重新加载页面来模拟切换。\n- 登录状态与站点存储保留在 FXMuse 独立浏览器数据目录中；关闭单个页签才释放该页面，完全退出后下次可恢复上次访问的页签地址。\n- 网页内点击新窗口或 `window.open()` 会自动在浏览器中新建页签，原页面保持不动。\n- 左侧栏按用户可识别的主域名聚合：例如 `my.feishu.cn` 与 `accounts.feishu.cn` 归入 `feishu.cn`；收藏入口置顶，已打开但未收藏的网站置于分隔线下，避免重复显示。\n- 左侧固定 `+` 用于按设置中选择的 Google 或百度创建新标签页；同一域名下的多个页面可在左侧弹层中选择或分别关闭。\n- 地址栏、后退、前进、刷新、停止和收藏按钮始终作用于当前实际页签。收藏以完整 URL 判断，点击后立即切换状态，再次点击可取消。\n- 收藏图标优先使用缓存；打开收藏后后台刷新一次，抓取失败时使用统一的站点 SVG 默认图标。\n- 设置页明确分为“工作台”和“浏览器”：工作台保留应用导入、安装与更新；浏览器提供默认搜索、收藏管理和仅清理缓存与历史的功能。切换这些区域不会销毁浏览器或工作台中的页面。\n- Windows 安装包包含 WebView2 离线兜底：已有 WebView2 的设备复用系统内核，缺少运行时的新设备会由安装程序静默补齐，无需下载完整 Chrome。\n\n## 实现方式\n\n原生层维护页签注册表和恢复快照，记录页签 ID、当前 URL、主域名、标题和最近激活顺序。所有浏览器命令都以页签 ID 为对象；导航事件统一回传当前页签的 URL、标题和聚合域名，前端只渲染真实状态。网页视图采用 FXMuse 自有数据目录，不读取 Chrome 或 Edge 的个人资料，因此兼容主流网站，同时不会碰触外部浏览器数据。\n\n## 验证\n\n- 43 项自动化测试通过。\n- Rust 桌面端 `cargo check` 通过。"
 }
